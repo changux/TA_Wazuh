@@ -1,0 +1,32 @@
+[ta_wazuh_settings/logging]
+version = 6.5.3
+modtime = 1492216517.090214000
+
+[passwords/credential%3A__REST_CREDENTIAL__%23TA-Wazuh%23configs%2Fconf-ta_wazuh_account%3Aaccount0%60%60splunk_cred_sep%60%601%3A]
+owner = admin
+version = 6.5.3
+modtime = 1492216517.092512000
+
+[passwords/credential%3A__REST_CREDENTIAL__%23TA-Wazuh%23configs%2Fconf-ta_wazuh_account%3Aaccount0%60%60splunk_cred_sep%60%602%3A]
+owner = admin
+version = 6.5.3
+modtime = 1492216517.106650000
+
+[ta_wazuh_account/account0]
+owner = admin
+version = 6.5.3
+modtime = 1492216517.110778000
+
+[passwords/credential%3A__REST_CREDENTIAL__%23TA-Wazuh%23data%2Finputs%2Fwazuh_agents%3ATAB_example%60%60splunk_cred_sep%60%601%3A]
+owner = splunk-system-user
+version = 6.5.3
+modtime = 1491702102.372055000
+
+[passwords/credential%3A__REST_CREDENTIAL__%23TA-Wazuh%23data%2Finputs%2Fwazuh_agents%3ATAB_example%60%60splunk_cred_sep%60%602%3A]
+owner = splunk-system-user
+version = 6.5.3
+modtime = 1491702102.378320000
+
+[inputs/wazuh_agents%3A%2F%2FTAB_example]
+version = 6.5.3
+modtime = 1491703329.600658000

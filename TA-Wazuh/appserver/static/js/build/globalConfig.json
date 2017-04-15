@@ -1,0 +1,325 @@
+{
+    "meta": {
+        "name": "TA-Wazuh", 
+        "apiVersion": "3.0.0", 
+        "version": "1.0.0", 
+        "restRoot": "TA_Wazuh", 
+        "displayName": "Wazuh"
+    }, 
+    "pages": {
+        "configuration": {
+            "title": "Configuration", 
+            "tabs": [
+                {
+                    "name": "account", 
+                    "title": "Account", 
+                    "entity": [
+                        {
+                            "label": "Account name", 
+                            "type": "text", 
+                            "validators": [
+                                {
+                                    "errorMsg": "Length of ID should be between 1 and 50", 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 50
+                                }, 
+                                {
+                                    "errorMsg": "Account name must start with a letter and followed by alphabetic letters, digits or underscores.", 
+                                    "type": "regex", 
+                                    "pattern": "^[a-zA-Z]\\w*$"
+                                }
+                            ], 
+                            "field": "name", 
+                            "help": "Enter a unique name for this account.", 
+                            "required": true
+                        }, 
+                        {
+                            "label": "Username", 
+                            "type": "text", 
+                            "validators": [
+                                {
+                                    "errorMsg": "Length of username should be between 1 and 200", 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 200
+                                }
+                            ], 
+                            "field": "username", 
+                            "options": {
+                                "placeholder": "Enter the username here"
+                            }, 
+                            "help": "Enter the username for this account.", 
+                            "required": true
+                        }, 
+                        {
+                            "label": "Password", 
+                            "type": "text", 
+                            "validators": [
+                                {
+                                    "errorMsg": "Length of password should be between 1 and 8192", 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 8192
+                                }
+                            ], 
+                            "field": "password", 
+                            "encrypted": true, 
+                            "help": "Enter the password for this account.", 
+                            "required": true
+                        }
+                    ], 
+                    "table": {
+                        "actions": [
+                            "edit", 
+                            "delete", 
+                            "clone"
+                        ], 
+                        "header": [
+                            {
+                                "label": "Account name", 
+                                "field": "name"
+                            }, 
+                            {
+                                "label": "Username", 
+                                "field": "username"
+                            }
+                        ]
+                    }
+                }, 
+                {
+                    "name": "logging", 
+                    "title": "Logging", 
+                    "entity": [
+                        {
+                            "label": "Log level", 
+                            "type": "singleSelect", 
+                            "options": {
+                                "disableSearch": true, 
+                                "autoCompleteFields": [
+                                    {
+                                        "label": "DEBUG", 
+                                        "value": "DEBUG"
+                                    }, 
+                                    {
+                                        "label": "INFO", 
+                                        "value": "INFO"
+                                    }, 
+                                    {
+                                        "label": "WARNING", 
+                                        "value": "WARNING"
+                                    }, 
+                                    {
+                                        "label": "ERROR", 
+                                        "value": "ERROR"
+                                    }, 
+                                    {
+                                        "label": "CRITICAL", 
+                                        "value": "CRITICAL"
+                                    }
+                                ]
+                            }, 
+                            "field": "loglevel", 
+                            "defaultValue": "INFO"
+                        }
+                    ]
+                }
+            ], 
+            "description": "Set up your add-on"
+        }, 
+        "inputs": {
+            "title": "Inputs", 
+            "services": [
+                {
+                    "name": "wazuh_agents", 
+                    "title": "wazuh_agents", 
+                    "entity": [
+                        {
+                            "label": "Name", 
+                            "type": "text", 
+                            "validators": [
+                                {
+                                    "errorMsg": "Input Name must start with a letter and followed by alphabetic letters, digits or underscores.", 
+                                    "type": "regex", 
+                                    "pattern": "^[a-zA-Z]\\w*$"
+                                }, 
+                                {
+                                    "errorMsg": "Length of input name should be between 1 and 100", 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 100
+                                }
+                            ], 
+                            "field": "name", 
+                            "help": "Enter a unique name for the data input", 
+                            "required": true
+                        }, 
+                        {
+                            "label": "Interval", 
+                            "type": "text", 
+                            "validators": [
+                                {
+                                    "errorMsg": "Interval must be an integer.", 
+                                    "type": "regex", 
+                                    "pattern": "^\\-[1-9]\\d*$|^\\d*$"
+                                }
+                            ], 
+                            "field": "interval", 
+                            "help": "Time interval of input in seconds.", 
+                            "required": true
+                        }, 
+                        {
+                            "label": "Index", 
+                            "type": "singleSelect", 
+                            "validators": [
+                                {
+                                    "errorMsg": "Length of index name should be between 1 and 80.", 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 80
+                                }
+                            ], 
+                            "field": "index", 
+                            "options": {
+                                "endpointUrl": "data/indexes", 
+                                "createSearchChoice": true, 
+                                "blackList": "^_.*$"
+                            }, 
+                            "defaultValue": "default", 
+                            "required": true
+                        }, 
+                        {
+                            "label": "Global Account", 
+                            "type": "singleSelect", 
+                            "field": "global_account", 
+                            "options": {
+                                "referenceName": "account"
+                            }, 
+                            "help": "", 
+                            "required": true
+                        }
+                    ]
+                }, 
+                {
+                    "name": "wazuh_status", 
+                    "title": "wazuh_status", 
+                    "entity": [
+                        {
+                            "label": "Name", 
+                            "type": "text", 
+                            "validators": [
+                                {
+                                    "errorMsg": "Input Name must start with a letter and followed by alphabetic letters, digits or underscores.", 
+                                    "type": "regex", 
+                                    "pattern": "^[a-zA-Z]\\w*$"
+                                }, 
+                                {
+                                    "errorMsg": "Length of input name should be between 1 and 100", 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 100
+                                }
+                            ], 
+                            "field": "name", 
+                            "help": "Enter a unique name for the data input", 
+                            "required": true
+                        }, 
+                        {
+                            "label": "Interval", 
+                            "type": "text", 
+                            "validators": [
+                                {
+                                    "errorMsg": "Interval must be an integer.", 
+                                    "type": "regex", 
+                                    "pattern": "^\\-[1-9]\\d*$|^\\d*$"
+                                }
+                            ], 
+                            "field": "interval", 
+                            "help": "Time interval of input in seconds.", 
+                            "required": true
+                        }, 
+                        {
+                            "label": "Index", 
+                            "type": "singleSelect", 
+                            "validators": [
+                                {
+                                    "errorMsg": "Length of index name should be between 1 and 80.", 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 80
+                                }
+                            ], 
+                            "field": "index", 
+                            "options": {
+                                "endpointUrl": "data/indexes", 
+                                "createSearchChoice": true, 
+                                "blackList": "^_.*$"
+                            }, 
+                            "defaultValue": "default", 
+                            "required": true
+                        }, 
+                        {
+                            "label": "Global Account", 
+                            "type": "singleSelect", 
+                            "field": "global_account", 
+                            "options": {
+                                "referenceName": "account"
+                            }, 
+                            "help": "", 
+                            "required": true
+                        }
+                    ]
+                }
+            ], 
+            "description": "Manage your data inputs", 
+            "table": {
+                "actions": [
+                    "edit", 
+                    "enable", 
+                    "delete", 
+                    "clone"
+                ], 
+                "header": [
+                    {
+                        "label": "Name", 
+                        "field": "name"
+                    }, 
+                    {
+                        "label": "Interval", 
+                        "field": "interval"
+                    }, 
+                    {
+                        "label": "Index", 
+                        "field": "index"
+                    }, 
+                    {
+                        "label": "Status", 
+                        "field": "disabled"
+                    }
+                ], 
+                "moreInfo": [
+                    {
+                        "label": "Name", 
+                        "field": "name"
+                    }, 
+                    {
+                        "label": "Interval", 
+                        "field": "interval"
+                    }, 
+                    {
+                        "label": "Index", 
+                        "field": "index"
+                    }, 
+                    {
+                        "label": "Status", 
+                        "field": "disabled"
+                    }, 
+                    {
+                        "label": "Global Account", 
+                        "field": "global_account"
+                    }
+                ]
+            }
+        }
+    }
+}
